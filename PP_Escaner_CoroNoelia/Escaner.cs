@@ -77,12 +77,6 @@ namespace Entidades
         {
             return !(e == d);
         }
-        /// <summary>
-        /// Comprueba si un documento está contenido en la lista de documentos de un escáner.
-        /// </summary>
-        /// <param name="e">El escáner en el que se busca el documento</param>
-        /// <param name="d">El documento que se busca en la lista de documentos del escáner</param>
-        /// <returns>True si el documento está en la lista de documentos del escáner,retorna false en caso contrario</returns>
       
         /// <summary>
         /// Agrega un documento a la lista de documentos del escáner si cumple con ciertas condiciones.
@@ -110,7 +104,6 @@ namespace Entidades
                     return true;
                 }
             }
-
             return false;
          }
 
@@ -125,19 +118,13 @@ namespace Entidades
             }
             return false;
         }
-        //if (esTipoValido && noExisteEnLista && esEstadoInicio)
-        //{
-        //    if (d.AvanzarEstado())
-        //    {
-        //        e.listaDocumentos.Add(d);      
-        //        retorno = true;
-        //    }
-        //}
-        //return retorno;
     }
-    
         #endregion METODOS
-    
 }
+
+
+
+
+
 #pragma warning restore CS0660
 #pragma warning restore CS0661
