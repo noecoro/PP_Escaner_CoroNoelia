@@ -78,6 +78,13 @@ namespace Entidades
             return !(e == d);
         }
         /// <summary>
+        /// Comprueba si un documento está contenido en la lista de documentos de un escáner.
+        /// </summary>
+        /// <param name="e">El escáner en el que se busca el documento</param>
+        /// <param name="d">El documento que se busca en la lista de documentos del escáner</param>
+        /// <returns>True si el documento está en la lista de documentos del escáner,retorna false en caso contrario</returns>
+      
+        /// <summary>
         /// Agrega un documento a la lista de documentos del escáner si cumple con ciertas condiciones.
         /// </summary>
         /// </summary>
@@ -87,39 +94,50 @@ namespace Entidades
         /// </returns></returns>
         public static bool operator +(Escaner e, Documento d)
         {
-            bool retorno = false;
+            if (e.ListaDocumentos.Contains(d))
+            {
+                throw new DocumentoDuplicadoException("El documento ya esta en el escaner.");
+            }
+            //bool retorno = false;
             bool esTipoValido = (e.tipo == TipoDoc.libro && d is Libro) || (e.tipo == TipoDoc.mapa && d is Mapa);
-            bool noExisteEnLista = !(e == d);
+            //   bool noExisteEnLista = !(e == d);
             bool esEstadoInicio = d.Estado == Paso.Inicio;
-            if (esTipoValido && noExisteEnLista && esEstadoInicio)
+            if (esTipoValido && esEstadoInicio)
             {
                 if (d.AvanzarEstado())
                 {
-                    e.listaDocumentos.Add(d);      
-                    retorno = true;
+                    e.ListaDocumentos.Add(d);
+                    return true;
                 }
             }
-            return retorno;
-        }
-        /// <summary>
-        /// Comprueba si un documento está contenido en la lista de documentos de un escáner.
-        /// </summary>
-        /// <param name="e">El escáner en el que se busca el documento</param>
-        /// <param name="d">El documento que se busca en la lista de documentos del escáner</param>
-        /// <returns>True si el documento está en la lista de documentos del escáner,retorna false en caso contrario</returns>
+
+            return false;
+         }
+
         public static bool operator ==(Escaner e, Documento d)
         {
             foreach (Documento documento in e.listaDocumentos)
-            {     
+            {
                 if (documento.Equals(d))
                 {
-                    return true; 
+                    return true;
                 }
             }
             return false;
         }
-        #endregion METODOS
+        //if (esTipoValido && noExisteEnLista && esEstadoInicio)
+        //{
+        //    if (d.AvanzarEstado())
+        //    {
+        //        e.listaDocumentos.Add(d);      
+        //        retorno = true;
+        //    }
+        //}
+        //return retorno;
     }
+    
+        #endregion METODOS
+    
 }
 #pragma warning restore CS0660
 #pragma warning restore CS0661
