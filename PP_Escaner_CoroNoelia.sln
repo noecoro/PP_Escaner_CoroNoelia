@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entidades", "PP_Escaner_CoroNoelia\Entidades.csproj", "{05ABE679-6BAA-40AA-8E87-53C9993E2C09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{E0937DE0-89B9-475B-B933-C285DB1BDBBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05ABE679-6BAA-40AA-8E87-53C9993E2C09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05ABE679-6BAA-40AA-8E87-53C9993E2C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05ABE679-6BAA-40AA-8E87-53C9993E2C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05ABE679-6BAA-40AA-8E87-53C9993E2C09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0937DE0-89B9-475B-B933-C285DB1BDBBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0937DE0-89B9-475B-B933-C285DB1BDBBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0937DE0-89B9-475B-B933-C285DB1BDBBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0937DE0-89B9-475B-B933-C285DB1BDBBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CB2B420-0491-4B27-9C39-9D670E689821}
+	EndGlobalSection
+EndGlobal
