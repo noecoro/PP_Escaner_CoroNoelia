@@ -10,22 +10,21 @@ namespace Test
     {
         static void Main(string[] args)
         {
-       
-                // COMO DEBERIA IMPRIMIRSE POR CONSOLA
-                //LIBRO
-                //      Titulo: Yerma
-                //      Autor: Garcia Lorca, Federico
-                //      Año: 1995
-                //      ISBN: 1114
-                //      Cod.de barras: 22222
-                //      Numero de paginas: 27.
+            // COMO DEBERIA IMPRIMIRSE POR CONSOLA
+            //LIBRO
+            //      Titulo: Yerma
+            //      Autor: Garcia Lorca, Federico
+            //      Año: 1995
+            //      ISBN: 1114
+            //      Cod.de barras: 22222
+            //      Numero de paginas: 27.
 
-                //MAPA
-                //      Titulo: Ciudad Autonoma de Buenos Aires
-                //      Autor: INstituto de Geografia
-                //      Año: 2022
-                //      Cod.de barras: 8888
-                //      Superficie: 30 * 20 = 600 cm2.
-            }
+            //MAPA
+            //      Titulo: Ciudad Autonoma de Buenos Aires
+            //      Autor: INstituto de Geografia
+            //      Año: 2022
+            //      Cod.de barras: 8888
+            //      Superficie: 30 * 20 = 600 cm2.
+        }
     }
 }

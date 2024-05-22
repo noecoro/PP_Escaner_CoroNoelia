@@ -42,7 +42,7 @@ namespace Entidades
         public static bool operator == (Libro l1, Libro l2)
         { 
             return l1.Barcode == l2.Barcode ||
-                   l1.ISBN == l2.ISBN ||
+                   l1.ISBN == l2.ISBN || l1.Anio == l2.Anio || l1.NumPaginas == l2.NumPaginas ||
                    (l1.Titulo == l2.Titulo && l1.Autor == l2.Autor);
         }
         /// <summary>
