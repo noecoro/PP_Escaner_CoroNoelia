@@ -10,28 +10,62 @@ using static Entidades.Documento;
 
 namespace Entidades
 {
-   
-   public class Escaner
-    {
-        public enum Departamento { nulo, mapoteca, procesosTecnicos }
-        public enum TipoDoc { libro, mapa }
-
-        private  List<Documento> listaDocumentos;
+    public class Escaner
+    { 
+        /// <summary>
+        /// Enumera los posibles departamentos de una biblioteca.
+        /// </summary>
+        public enum Departamento
+        {
+            /// <summary>
+            /// No se ha asignado un departamento.
+            /// </summary>
+            nulo,
+            /// <summary>
+            /// Departamento de mapoteca.
+            /// </summary>
+            mapoteca,
+            /// <summary>
+            /// Departamento de procesos técnicos.
+            /// </summary>
+            procesosTecnicos
+        }
+        /// <summary>
+        /// Enumera los posibles tipos de documentos.
+        /// </summary>
+        public enum TipoDoc
+        {
+            /// <summary>
+            /// Tipo de documento: libro.
+            /// </summary>
+            libro,
+            /// <summary>
+            /// Tipo de documento: mapa.
+            /// </summary>
+            mapa
+        }
+        #region ATRIBUTOS
+        private List<Documento> listaDocumentos;
         private Departamento locacion;
         private string marca;
         private TipoDoc tipo;
-   
+        #endregion Atributos
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase "Escaner" con la marca y el tipo de documento especificados.
+        /// </summary>
+        /// <param name="marca">marca del escáner</param>
+        /// <param name="tipo">tipo de documento que el escáner puede procesar</param>
         public Escaner(string marca, TipoDoc tipo)
         {
             this.marca = marca;
             this.tipo = tipo;
             this.listaDocumentos = new List<Documento>();
-
+            //Rehacer
             var tipoDepartamento = new Dictionary<TipoDoc, Departamento>
-           {
-           { TipoDoc.libro, Departamento.procesosTecnicos },
-           { TipoDoc.mapa, Departamento.mapoteca }
-             };
+            {
+            { TipoDoc.libro, Departamento.procesosTecnicos },
+            { TipoDoc.mapa, Departamento.mapoteca }
+              };
             if (tipoDepartamento.ContainsKey(tipo))
             {
                 this.locacion = tipoDepartamento[tipo];
@@ -41,22 +75,33 @@ namespace Entidades
                 this.locacion = Departamento.nulo;
             }
         }
-
         #region PROPIEDADES
-        public List<Documento> ListaDocumentos { get => listaDocumentos;  }
-        public Departamento Locacion { get=>locacion;}
-        public string Marca { get => marca;  }
-        public TipoDoc Tipo { get=>tipo; }
-        #endregion
-
+        /// <summary>
+        /// Obtiene la lista de documentos procesados por el escáner.
+        /// </summary>
+        public List<Documento> ListaDocumentos { get => listaDocumentos; }
+        /// <summary>
+        /// Obtiene la ubicación del escáner dentro de la biblioteca.
+        /// </summary>
+        public Departamento Locacion { get => locacion; }
+        /// <summary>
+        /// Obtiene la marca del escáner.
+        /// </summary>
+        public string Marca { get => marca; }
+        /// <summary>
+        /// Obtiene el tipo de documento que el escáner puede procesar.
+        /// </summary>
+        public TipoDoc Tipo { get => tipo; }
+        #endregion propiedades
         #region METODOS 
         /// <summary>
-        /// Cambia el estado del documento especificado en la lista de documentos del escáner.
+        /// Cambia el estado del documento procesado por el escáner.
         /// </summary>
         /// <param name="d">El documento cuyo estado se va a cambiar</param>
         /// <returns>Verdadero si se cambió con éxito el estado del documento; de lo contrario, retorna falso.</returns>
         public bool CambiarEstadoDocumento(Documento d)
         {
+
             for (int i = 0; i < listaDocumentos.Count; i++)
             {
                 if (listaDocumentos[i] == d)
@@ -70,21 +115,20 @@ namespace Entidades
         /// <summary>
         /// Comprueba si un documento no está presente en la lista de documentos del escáner.
         /// </summary>
-        /// <param name="e">El escáner</param>
-        /// <param name="d">El documento</param>
+        /// <param name="e">El escáner a comparar</param>
+        /// <param name="d">El documento a comparar</param>
         /// <returns>Verdadero si el documento no está presente en la lista de documentos del escáner; de lo contrario, retorna falso.</returns>
         public static bool operator !=(Escaner e, Documento d)
         {
             return !(e == d);
         }
-      
         /// <summary>
-        /// Agrega un documento a la lista de documentos del escáner si cumple con ciertas condiciones.
+        /// Agrega un documento al escáner y avanza su estado si cumple con ciertas condiciones.
         /// </summary>
         /// </summary>
-        /// <param name="e">El escáner.</param>
-        /// <param name="d">El documento a agregar</param>
-        /// <returns>true si el documento se agregó con éxito a la lista de documentos del escáner; de lo contrario, false.
+        /// <param name="e">escáner al que se agrega el documento.</param>
+        /// <param name="d">documento que se agrega al escáner</param>
+        /// <returns>verdadero si se agregó el documento al escáner y se avanzó su estado; de lo contrario, falso
         /// </returns></returns>
         public static bool operator +(Escaner e, Documento d)
         {
@@ -92,34 +136,38 @@ namespace Entidades
             {
                 throw new DocumentoDuplicadoException("El documento ya esta en el escaner.");
             }
-            //bool retorno = false;
-            bool esTipoValido = (e.tipo == TipoDoc.libro && d is Libro) || (e.tipo == TipoDoc.mapa && d is Mapa);
-            //   bool noExisteEnLista = !(e == d);
-            bool esEstadoInicio = d.Estado == Paso.Inicio;
-            if (esTipoValido && esEstadoInicio)
+            if (e == d || d.Estado != Documento.Paso.Inicio)
+                return false;
+
+            if ((e.Tipo == TipoDoc.libro && d is Libro) || (e.Tipo == TipoDoc.mapa && d is Mapa))
             {
-                if (d.AvanzarEstado())
-                {
-                    e.ListaDocumentos.Add(d);
-                    return true;
-                }
+                d.AvanzarEstado();
+                e.ListaDocumentos.Add(d);
+                return true;
             }
             return false;
-         }
+        }
+        /// <summary>
+        /// Comprueba si un escáner contiene un documento específico.
+        /// </summary>
+        /// <param name="e">El escáner en el que se realiza la búsqueda</param>
+        /// <param name="d">El documento que se busca en el escáner</param>
+        /// <returns>Verdadero si el escáner contiene el documento especificado, de lo contrario, falso.</returns>
 
         public static bool operator ==(Escaner e, Documento d)
         {
             foreach (Documento documento in e.listaDocumentos)
             {
-                if (documento.Equals(d))
+                if ((documento is Libro libro && d is Libro libroD && libro == libroD) ||
+                    (documento is Mapa mapa && d is Mapa mapaD && mapa == mapaD))
                 {
                     return true;
                 }
             }
-            return false;
-        }
+            return false;  
+        } 
     }
-        #endregion METODOS
+        #endregion Metodos
 }
 
 

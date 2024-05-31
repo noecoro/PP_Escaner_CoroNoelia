@@ -10,13 +10,22 @@ using static Entidades.Escaner;
 namespace Entidades
 {
     public static class Informes
-    { 
-       public static void MostrarDistribuidos(Escaner e, out int extension, out int cantidad, out string resumen)
+    {
+        /// <summary>
+        ///Muestra los documentos que están en estado "Distribuido" en un escáner y recopila información sobre 
+        ///la extensión total, la cantidad y un resumen de los documentos.
+        /// </summary>
+        /// <param name="e">El escáner del que se muestran los documentos.</param>
+        /// <param name="extension">La extensión total de los documentos que están en estado "Distribuido"</param>
+        /// <param name="cantidad">La cantidad de documentos que están en estado "Distribuido"</param>
+        /// <param name="resumen">Un resumen de los documentos que están en estado "Distribuido"</param>
+        public static void MostrarDistribuidos(Escaner e, out int extension, out int cantidad, out string resumen)
         {
             MostrarDocumentosPorEstado(e, Documento.Paso.Distribuido, out extension, out cantidad, out resumen);
         }
         /// <summary>
-        /// Muestra los documentos de un escáner que tienen un estado específico y calcula la extensión total y la cantidad de documentos mostrados.
+        /// Muestra los documentos de un escáner según su estado y recopila información sobre la extensión 
+        /// total, la cantidad y un resumen de los documentos.
         /// </summary>
         /// <param name="e">El escáner del que se mostrarán los documentos</param>
         /// <param name="estado">El estado de los documentos que se desean mostrar</param>
@@ -33,42 +42,51 @@ namespace Entidades
             {
                 if (documento.Estado == estado)
                 {
-                    cantidad++;
-                    if (documento is Libro libro)
+                    if (documento is Libro libro && e.Tipo == Escaner.TipoDoc.libro)
                     {
                         extension += libro.NumPaginas;
-                        resumen += $"Libro: Título: {libro.Titulo}, Autor: {libro.Autor}, Páginas: {libro.NumPaginas}\n";
                     }
-                    else if (documento is Mapa mapa)
+                    else if (documento is Mapa mapa && e.Tipo == Escaner.TipoDoc.mapa)
                     {
                         extension += mapa.Superficie;
-                        resumen += $"Mapa: Título: {mapa.Titulo}, Autor: {mapa.Autor}, Superficie: {mapa.Superficie} cm²\n";
                     }
+                    cantidad++;
+                    resumen += documento.ToString();
                 }
             }
         }
         /// <summary>
-        /// Muestra los documentos que están actualmente en el escáner y calcula la extensión total y la cantidad de documentos mostrados.Llama al método MostrarDocumentosPorEstado con el estado Documento.Paso.EnEscaner para mostrar los documentos que están actualmente en el escáner.
+        ///Muestra los documentos que están en estado "EnEscaner" en un escáner y recopila información sobre 
+        ///la extensión total, la cantidad y un resumen de los documentos.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="extension"></param>
-        /// <param name="cantidad"></param>
-        /// <param name="resumen"></param>
+        /// <param name="e">El escáner del que se muestran los documentos.</param>
+        /// <param name="extension">La extensión total de los documentos que están en estado "EnEscaner"</param>
+        /// <param name="cantidad">La cantidad de documentos que están en estado "EnEscaner"</param>
+        /// <param name="resumen">Un resumen de los documentos que están en estado "EnEscaner"</param>
         public static void MostrarEnEscaner(Escaner e, out int extension, out int cantidad, out string resumen)
         {
             MostrarDocumentosPorEstado(e, Documento.Paso.EnEscaner, out extension, out cantidad, out resumen);
         }
         /// <summary>
-        /// Muestra los documentos que están actualmente en el escáner y calcula la extensión total y la cantidad de documentos mostrados.Llama al método MostrarDocumentosPorEstado con el estado Documento.Paso.EnRevision para mostrar los documentos que están actualmente en el escáner.
+        ///Muestra los documentos que están en estado "EnRevision" en un escáner y recopila información sobre 
+        ///la extensión total, la cantidad y un resumen de los documentos.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="extension"></param>
-        /// <param name="cantidad"></param>
-        /// <param name="resumen"></param>
+        /// <param name="e">El escáner del que se muestran los documentos.</param>
+        /// <param name="extension">La extensión total de los documentos que están en estado "EnRevision"</param>
+        /// <param name="cantidad">La cantidad de documentos que están en estado "EnRevision"</param>
+        /// <param name="resumen">Un resumen de los documentos que están en estado "EnRevision"</param>
         public static void MostrarEnRevision(Escaner e, out int extension, out int cantidad, out string resumen)
         {
             MostrarDocumentosPorEstado(e, Documento.Paso.EnRevision, out extension, out cantidad, out resumen);
         }
+        /// <summary>
+        ///Muestra los documentos que están en estado "Terminado" en un escáner y recopila información sobre 
+        ///la extensión total, la cantidad y un resumen de los documentos.
+        /// </summary>
+        /// <param name="e">El escáner del que se muestran los documentos</param>
+        /// <param name="extension">La extensión total de los documentos que están en estado "Terminado"</param>
+        /// <param name="cantidad">La cantidad de documentos que están en estado "Terminado"</param>
+        /// <param name="resumen">Un resumen de los documentos que están en estado "Terminado"</param>
         public static void MostrarTerminados(Escaner e, out int extension, out int cantidad, out string resumen)
         {
             MostrarDocumentosPorEstado(e, Documento.Paso.Terminado, out extension, out cantidad, out resumen);

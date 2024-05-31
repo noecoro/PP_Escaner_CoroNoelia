@@ -16,8 +16,4 @@ namespace Entidades
         public DocumentoDuplicadoException(string mensaje, Exception inner)
             : base(mensaje, inner) { }
     }
-    //internal class ExcepcionDocumentoDuplicado
-    //{
-
-    //}
 }
