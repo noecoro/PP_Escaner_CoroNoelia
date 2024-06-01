@@ -60,20 +60,7 @@ namespace Entidades
             this.marca = marca;
             this.tipo = tipo;
             this.listaDocumentos = new List<Documento>();
-            //Rehacer
-            var tipoDepartamento = new Dictionary<TipoDoc, Departamento>
-            {
-            { TipoDoc.libro, Departamento.procesosTecnicos },
-            { TipoDoc.mapa, Departamento.mapoteca }
-              };
-            if (tipoDepartamento.ContainsKey(tipo))
-            {
-                this.locacion = tipoDepartamento[tipo];
-            }
-            else
-            {
-                this.locacion = Departamento.nulo;
-            }
+            this.locacion = this.Tipo == TipoDoc.mapa ? Departamento.mapoteca : Departamento.procesosTecnicos;
         }
         #region PROPIEDADES
         /// <summary>
