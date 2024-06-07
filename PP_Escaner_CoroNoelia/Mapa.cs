@@ -92,7 +92,7 @@ namespace Entidades
         public override string ToString()
         { 
             StringBuilder text = new StringBuilder(base.ToString());
-            text.AppendLine($"\tSuperficie: {Alto} * {Ancho} = {Superficie} cm2.");
+            text.AppendLine($"\tSuperficie: {Alto} * {Ancho} = {Superficie} cm2.\n");
             return text.ToString();
         }
         #endregion metodos

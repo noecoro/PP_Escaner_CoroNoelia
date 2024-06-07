@@ -108,7 +108,10 @@ public abstract class Documento
         string numNormalizado = this is Libro ? $"\n\tISBN: {this.NumNormalizado}" : "";
         StringBuilder text = new StringBuilder();
 
-        text.AppendLine($"\n\tTitulo: {this.Titulo}");
+        if (!(this is Mapa)) // Solo añadir el título si no es un Mapa
+        {
+            text.AppendLine($"\n\tTitulo: {this.Titulo}");
+        }
         text.AppendLine($"\tAutor: {this.Autor}");
         text.AppendLine($"\tAño: {this.Anio.ToString()}{numNormalizado}");
         text.AppendLine($"\tCód. de barras: {this.Barcode}");
