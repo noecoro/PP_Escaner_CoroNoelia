@@ -119,20 +119,32 @@ namespace Entidades
         /// </returns></returns>
         public static bool operator +(Escaner e, Documento d)
         {
-            if (e.ListaDocumentos.Contains(d))
+            try
             {
-                throw new DocumentoDuplicadoException("El documento ya esta en el escaner.");
-            }
-            if (e == d || d.Estado != Documento.Paso.Inicio)
-                return false;
+                if (e.ListaDocumentos.Contains(d))
+                {
+                    throw new DocumentoDuplicadoException("El documento ya está en el escáner.");
+                }
 
-            if ((e.Tipo == TipoDoc.libro && d is Libro) || (e.Tipo == TipoDoc.mapa && d is Mapa))
-            {
-                d.AvanzarEstado();
-                e.ListaDocumentos.Add(d);
-                return true;
+                if (e == d || d.Estado != Documento.Paso.Inicio)
+                {
+                    return false;
+                }
+
+                if ((e.Tipo == TipoDoc.libro && d is Libro) || (e.Tipo == TipoDoc.mapa && d is Mapa))
+                {
+                    d.AvanzarEstado();
+                    e.ListaDocumentos.Add(d);
+                    return true;
+                }
+
+                // Si el tipo de documento no es compatible con el escáner, se lanza la excepción
+                throw new TipoIncorrectoException("Este escáner no acepta este tipo de documento", "Entidades", "sobrecarga de +");
             }
-            return false;
+            catch (TipoIncorrectoException ex)
+            {
+                throw new TipoIncorrectoException("El documento no se pudo añadir a la lista", "Entidades", "sobrecarga de +", ex);
+            }
         }
         /// <summary>
         /// Comprueba si un escáner contiene un documento específico.
@@ -143,6 +155,12 @@ namespace Entidades
 
         public static bool operator ==(Escaner e, Documento d)
         {
+            if ((e.Tipo == Escaner.TipoDoc.libro && !(d is Libro)) ||
+       (e.Tipo == Escaner.TipoDoc.mapa && !(d is Mapa)))
+            {
+                throw new TipoIncorrectoException("Este escáner no acepta este tipo de documento", "Entidades", "sobrecarga de ==");
+            }
+
             foreach (Documento documento in e.listaDocumentos)
             {
                 if ((documento is Libro libro && d is Libro libroD && libro == libroD) ||
@@ -151,7 +169,7 @@ namespace Entidades
                     return true;
                 }
             }
-            return false;  
+            return false;
         } 
     }
         #endregion Metodos
