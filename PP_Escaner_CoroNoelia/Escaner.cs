@@ -109,6 +109,7 @@ namespace Entidades
         {
             return !(e == d);
         }
+
         /// <summary>
         /// Agrega un documento al escáner y avanza su estado si cumple con ciertas condiciones.
         /// </summary>
@@ -117,6 +118,8 @@ namespace Entidades
         /// <param name="d">documento que se agrega al escáner</param>
         /// <returns>verdadero si se agregó el documento al escáner y se avanzó su estado; de lo contrario, falso
         /// </returns></returns>
+        /// 
+
         public static bool operator +(Escaner e, Documento d)
         {
             try
@@ -137,15 +140,14 @@ namespace Entidades
                     e.ListaDocumentos.Add(d);
                     return true;
                 }
-
-                // Si el tipo de documento no es compatible con el escáner, se lanza la excepción
-                throw new TipoIncorrectoException("Este escáner no acepta este tipo de documento", "Entidades", "sobrecarga de +");
+                throw new TipoIncorrectoException("Este escáner no acepta este tipo de documento", "Entidades", "sobrecarga de +");//detalle
             }
             catch (TipoIncorrectoException ex)
-            {
+            {//error inesperado
                 throw new TipoIncorrectoException("El documento no se pudo añadir a la lista", "Entidades", "sobrecarga de +", ex);
             }
         }
+
         /// <summary>
         /// Comprueba si un escáner contiene un documento específico.
         /// </summary>
@@ -156,7 +158,7 @@ namespace Entidades
         public static bool operator ==(Escaner e, Documento d)
         {
             if ((e.Tipo == Escaner.TipoDoc.libro && !(d is Libro)) ||
-       (e.Tipo == Escaner.TipoDoc.mapa && !(d is Mapa)))
+                  (e.Tipo == Escaner.TipoDoc.mapa && !(d is Mapa)))
             {
                 throw new TipoIncorrectoException("Este escáner no acepta este tipo de documento", "Entidades", "sobrecarga de ==");
             }
@@ -174,10 +176,5 @@ namespace Entidades
     }
         #endregion Metodos
 }
-
-
-
-
-
 #pragma warning restore CS0660
 #pragma warning restore CS0661

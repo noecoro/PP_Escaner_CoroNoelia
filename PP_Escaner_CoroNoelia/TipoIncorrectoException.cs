@@ -67,7 +67,7 @@ namespace Entidades
             }
             else
             {
-                text.AppendLine($"Detalles: {base.Message}");
+                text.AppendLine($"Detalles: {base.Message}");//error inesperado
             }
             return text.ToString();
         }
