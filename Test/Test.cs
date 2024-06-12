@@ -56,54 +56,11 @@ namespace Test
                 pudo = l + m1;
 
             }
-            //catch (TipoIncorrectoException ex)
-            //{
-            //    Console.WriteLine(ex.ToString());
-            //}
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error inesperado: {ex.Message}");
-            }
-
-            Console.WriteLine("\nPrimer intento agregar libro en escaner de mapas");
-            try
-            {
-                bool pudo = m + l1;
-            }
             catch (TipoIncorrectoException ex)
             {
                 Console.WriteLine(ex.ToString());
             }
-
-            Console.WriteLine("\nSegundo intento agregar mapa en escaner de libros");
-            try
-            {
-                bool pudo = l + m1;
-            }
-            catch (TipoIncorrectoException ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            try
-            {
-                bool pudo = l == m1;
-               
-            }
-            catch (TipoIncorrectoException ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            try
-            {
-                bool pudo = m == l1;
-              
-            }
-            catch (TipoIncorrectoException ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
+            
 
             l1.AvanzarEstado();
             l1.AvanzarEstado();
